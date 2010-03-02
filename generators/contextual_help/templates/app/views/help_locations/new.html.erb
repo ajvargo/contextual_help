@@ -1,0 +1,10 @@
+<h1>New Contextual Help Location</h1>
+
+<% form_for(@help_location) do |f| %>
+<p>
+  <%= f.submit 'Generate Locations' %>
+</p>
+<% end %>
+
+<%= link_to 'Help Locations', help_locations_path %> |
+<%= link_to 'Help Articles', help_articles_path %>

@@ -9,8 +9,13 @@ class ContextualHelpGenerator < Rails::Generator::NamedBase
       end
   
       unless options[:no_views]
-        m.directory "app/views/help_articles"
         m.directory "app/views/help_locations"
+        %W[index edit new show].each do |view|
+          m.file  "app/views/help_locations/#{view}.html.erb", "app/views/help_locations/#{view}.html.erb"
+        end
+        
+        m.directory "app/views/help_articles"
+
         m.directory "app/views/shared"
         
       end

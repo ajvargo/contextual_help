@@ -1,0 +1,18 @@
+<h1>Contextual Help Location</h1>
+<p>
+  <b>Controller:</b>
+  <%=h @help_location.controller %>
+</p>
+<p>
+  <b>Action:</b>
+  <%=h @help_location.action %>
+</p>
+
+<p>
+  <b>In use:</b>
+  <%=h @help_location.in_use %>
+</p>
+
+<%= link_to 'Edit', edit_help_location_path(@help_location) %> |
+<%= link_to 'Help Locations', help_locations_path %> |
+<%= link_to 'Help Articles', help_articles_path %>

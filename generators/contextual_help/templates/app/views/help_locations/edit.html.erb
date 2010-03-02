@@ -1,0 +1,16 @@
+<h1>Editing Contextual Help Location</h1>
+<% form_for(@help_location) do |f| %>
+<%= f.error_messages %>
+
+<p>
+  <%= f.label :in_use %><br />
+  <%= f.check_box :in_use %>
+</p>
+<p>
+  <%= f.submit 'Update' %>
+</p>
+<% end %>
+<%= link_to 'Show', @help_location %> |
+<%= link_to 'Help Locations', help_locations_path %> |
+<%= link_to 'Help Articles', help_articles_path %>
+

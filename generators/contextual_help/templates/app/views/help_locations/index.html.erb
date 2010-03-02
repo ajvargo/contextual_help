@@ -1,0 +1,27 @@
+<h1>Listing Contextual Help Locations</h1>
+
+<table>
+  <tr>
+    <th>Controller</th>
+    <th>Action</th>
+    <th>In use</th>
+  </tr>
+
+<% @help_locations.each do |help_location| %>
+  <tr>
+    <td><%=h help_location.controller %></td>
+    <td><%=h help_location.action %></td>
+    <td><%=h help_location.in_use %></td>
+    <td><%= link_to 'Show', help_location %></td>
+    <td><%= link_to 'Edit', edit_help_location_path(help_location) %></td>
+    <td><%= link_to 'Destroy', help_location, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<%= link_to 'New help_location', new_help_location_path %> |
+<%= link_to 'Help Locations', help_locations_path %> |
+<%= link_to 'Help Articles', help_articles_path %>
+
+
