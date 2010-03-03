@@ -1,0 +1,30 @@
+  <%= f.error_messages %>
+  
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.label :in_use %><br />
+    <%= f.check_box :in_use %>
+  </p>
+  <p>
+    <%= f.label :position %><br />
+    <%= f.text_field :position %>
+  </p>
+  <p>
+    <%= f.label :page_tip %><br />
+    <%= f.text_field :page_tip %>
+  </p>
+
+  <p>
+    <% if @help_article && HelpLocation.count > 0 %>
+      <% help_locations = HelpLocation.all.collect %>
+      <label for="help_article_locations">Locations</label><br/>
+      <%= select_tag 'help_location_ids[]', options_for_select(HelpLocation.all.collect{|hl| ["#{hl.controller} | #{hl.action}", hl.id]}, help_locations), { :multiple => true, :size =>5, :id => "help_article_locations" } %>
+   <% end %>
+  </p>

@@ -1,0 +1,29 @@
+<h1>Listing Contextual Help Articles</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Body</th>
+    <th>In use</th>
+    <th>Position</th>
+    <th>Page tip</th>
+  </tr>
+
+<% @help_articles.each do |help_article| %>
+  <tr>
+    <td><%=h help_article.title %></td>
+    <td><%=h help_article.body %></td>
+    <td><%=h help_article.in_use %></td>
+    <td><%=h help_article.position %></td>
+    <td><%=h help_article.page_tip %></td>
+    <td><%= link_to 'Show', help_article %></td>
+    <td><%= link_to 'Edit', edit_help_article_path(help_article) %></td>
+    <td><%= link_to 'Destroy', help_article, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Contextual Help Article', new_help_article_path %> |
+<%= link_to 'Contextual Help Locations', help_locations_path %>

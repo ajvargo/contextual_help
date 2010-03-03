@@ -1,0 +1,29 @@
+<p>
+  <b>Title:</b>
+  <%=h @help_article.title %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%=h @help_article.body %>
+</p>
+
+<p>
+  <b>In use:</b>
+  <%=h @help_article.in_use %>
+</p>
+
+<p>
+  <b>Position:</b>
+  <%=h @help_article.position %>
+</p>
+
+<p>
+  <b>Page tip:</b>
+  <%=h @help_article.page_tip %>
+</p>
+
+
+<%= link_to 'Edit', edit_help_article_path(@help_article) %> |
+<%= link_to 'Contextual Help Articles', help_articles_path %> |
+<%= link_to 'Contextual Help Locations', help_locations_path %>

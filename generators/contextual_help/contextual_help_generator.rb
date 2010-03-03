@@ -15,6 +15,9 @@ class ContextualHelpGenerator < Rails::Generator::NamedBase
         end
         
         m.directory "app/views/help_articles"
+        %W[index edit new show _form].each do |view|
+          m.file  "app/views/help_articles/#{view}.html.erb", "app/views/help_articles/#{view}.html.erb"
+        end
 
         m.directory "app/views/shared"
         
