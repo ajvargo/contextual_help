@@ -20,10 +20,8 @@ class ContextualHelpGenerator < Rails::Generator::NamedBase
         end
 
         m.directory "app/views/shared"
-        
+        m.file  "app/views/shared/help.html.erb", "app/views/shared/help.html.erb"
       end
-      # m.directory "lib"
-      # m.template 'README', "README"
     end
   end
 end

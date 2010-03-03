@@ -1,0 +1,8 @@
+<h1>Contextual Help</h1>
+
+<%- @help_articles.each do |help_article| -%>
+  <h3><%=h help_article.title %></h3>
+  <div><%=h help_article.body %></div>
+<%- end -%>
+
+
