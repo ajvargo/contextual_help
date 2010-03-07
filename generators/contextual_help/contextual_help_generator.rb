@@ -1,4 +1,5 @@
 class ContextualHelpGenerator < Rails::Generator::NamedBase
+
   def manifest
     record do |m|
       unless options[:no_migration]
@@ -21,6 +22,11 @@ class ContextualHelpGenerator < Rails::Generator::NamedBase
 
         m.directory "app/views/shared"
         m.file  "app/views/shared/help.html.erb", "app/views/shared/help.html.erb"
+      end
+
+      unless options[:no_routes]
+        m.route_resources "help_articles"
+        m.route_resources "help_locations"
       end
     end
   end
