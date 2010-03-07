@@ -18,6 +18,7 @@ class HelpLocationsController < ApplicationController
   end
 
   def new
+    @help_location = HelpLocation.new
     respond_to do |format|
       format.html
     end
