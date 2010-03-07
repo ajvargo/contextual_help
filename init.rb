@@ -1,6 +1,5 @@
 ActionController::Base.send(:include, ContextualHelpController)
-#ActionController::Base.helper(ContextualHelp)
-
+ActionView::Base.send(:include, ContextualHelpHelper)
 
 # puts <<-eos
 
@@ -17,5 +16,8 @@ ActionController::Base.send(:include, ContextualHelpController)
 #   # These allow anything/help to get picked up on by Contextual Help     
 #   map.connect ':controller/help', :action => :help
 #   map.connect ':controller/:rest/help', :action => :help
+
+#   Finally, add this to ApplicationController
+#   contextual_help
 
 # eos
