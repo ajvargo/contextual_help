@@ -1,4 +1,4 @@
-ActionController::Base.send(:include, ContextualHelp)
+ActionController::Base.send(:include, ContextualHelpController)
 #ActionController::Base.helper(ContextualHelp)
 
 
