@@ -4,9 +4,9 @@ class ContextualHelpGenerator < Rails::Generator::NamedBase
       unless options[:skip_migration]
         migration = "create_contextual_help_tables"
         m.migration_template "db/#{migration}.rb", 'db/migrate', 
-                :assigns => {:migration_name => migration }, :migration_file_name => migration        
-     end
-  
+        :assigns => {:migration_name => migration }, :migration_file_name => migration        
+      end
+      
       unless options[:skip_views]
         m.directory "app/views/help_locations"
         %W[index edit new show].each do |view|
@@ -29,8 +29,14 @@ class ContextualHelpGenerator < Rails::Generator::NamedBase
         logger.route "map.connect  :controller/help, :action => :help"
         logger.route "map.connect :controller/:rest/help', :action => :help"
         look_for = 'ActionController::Routing::Routes.draw do |map|'
-        m.gsub_file('config/routes.rb', /(#{Regexp.escape(look_for)})/mi){|match| "#{match}\n  map.connect ':controller/:crud/help', :action => :help\n"}
+        m.gsub_file('config/routes.rb', /(#{Regexp.escape(look_for)})/mi){|match| "#{match}\n  map.connect ':controller/:rest/help', :action => :help\n"}
         m.gsub_file('config/routes.rb', /(#{Regexp.escape(look_for)})/mi){|match| "#{match}\n  map.connect ':controller/help', :action => :help\n"}
+      end
+
+      unless options[:skip_controller]
+        logger.controller "adding 'contextual_help' to application controller"
+        look_for = 'class ApplicationController < ActionController::Base'
+        m.gsub_file('app/controllers/application_controller.rb', /(#{Regexp.escape(look_for)})/mi){|match| "#{match}\n  contextual_help \n"}
       end
     end
   end
@@ -41,8 +47,10 @@ class ContextualHelpGenerator < Rails::Generator::NamedBase
     opt.on("--skip-migration",
            "Don't generate a migration file for help locations or articles") { |v| options[:skip_migration] = true }
     opt.on("--skip-views",
-      "Don't generate a copy of the views") { |v| options[:skip_views] = true }
+           "Don't generate a copy of the views") { |v| options[:skip_views] = true }
     opt.on("--skip-routes",
-      "Don't add in contextual help releated routes") { |v| options[:skip_routes] = true }
-  end
+           "Don't add in contextual help releated routes") { |v| options[:skip_routes] = true }
+    opt.on("--skip-controller",
+           "Don't add 'contextual_help' mixin call to app/controllers/application_controller.rb") { |v| options[:skip_controller] = true }
+ end
 end
