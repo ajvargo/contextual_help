@@ -3,10 +3,9 @@ class ContextualHelpGenerator < Rails::Generator::NamedBase
     record do |m|
       unless options[:skip_migration]
         migration = "create_contextual_help_tables"
-        m.migration_template "db/#{migration}.rb", 'db/migrate',
-        :assigns => {:migration_name => migration },
-        :migration_file_name => migration
-      end
+        m.migration_template "db/#{migration}.rb", 'db/migrate', 
+                :assigns => {:migration_name => migration }, :migration_file_name => migration        
+     end
   
       unless options[:skip_views]
         m.directory "app/views/help_locations"
@@ -26,6 +25,12 @@ class ContextualHelpGenerator < Rails::Generator::NamedBase
       unless options[:skip_routes]
         m.route_resources "help_articles"
         m.route_resources "help_locations"
+        # add generic help catches to config/routes.rb
+        logger.route "map.connect  :controller/help, :action => :help"
+        logger.route "map.connect :controller/:rest/help', :action => :help"
+        look_for = 'ActionController::Routing::Routes.draw do |map|'
+        m.gsub_file('config/routes.rb', /(#{Regexp.escape(look_for)})/mi){|match| "#{match}\n  map.connect ':controller/:crud/help', :action => :help\n"}
+        m.gsub_file('config/routes.rb', /(#{Regexp.escape(look_for)})/mi){|match| "#{match}\n  map.connect ':controller/help', :action => :help\n"}
       end
     end
   end
