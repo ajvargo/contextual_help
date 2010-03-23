@@ -10,7 +10,7 @@ module ContextualHelpController
 
   module InstanceMethods
     def help
-      @help_articles = HelpLocation.find_all_by_controller_and_action(controller_name, params[:rest]||"index").collect{|hl| hl.help_articles}.flatten
+      @help_articles = HelpArticle.in_use(controller_name, params[:rest] || "index")
       render 'shared/help'
     end
   end
