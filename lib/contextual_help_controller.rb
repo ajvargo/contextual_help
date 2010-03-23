@@ -15,7 +15,11 @@ module ContextualHelpController
       else
         @help_articles = HelpArticle.in_use(controller_name, params[:rest] || "index")
       end
-      render 'shared/help'
+      respond_to do |format|
+        format.html { render 'shared/help' }
+        format.xml  { render :xml => @help_articles }
+        format.json { render :json => @help_articles }
+      end
     end
   end
 end

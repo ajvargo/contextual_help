@@ -29,8 +29,8 @@ class ContextualHelpGenerator < Rails::Generator::NamedBase
         logger.route "map.connect  :controller/help, :action => :help"
         logger.route "map.connect :controller/:rest/help', :action => :help"
         look_for = 'ActionController::Routing::Routes.draw do |map|'
-        m.gsub_file('config/routes.rb', /(#{Regexp.escape(look_for)})/mi){|match| "#{match}\n  map.connect ':controller/:rest/help', :action => :help\n"}
-        m.gsub_file('config/routes.rb', /(#{Regexp.escape(look_for)})/mi){|match| "#{match}\n  map.connect ':controller/help', :action => :help\n"}
+        m.gsub_file('config/routes.rb', /(#{Regexp.escape(look_for)})/mi){|match| "#{match}\n  map.connect ':controller/:rest/help.:format', :action => :help\n"}
+        m.gsub_file('config/routes.rb', /(#{Regexp.escape(look_for)})/mi){|match| "#{match}\n  map.connect ':controller/help.:format', :action => :help\n"}
       end
 
       unless options[:skip_controller]
