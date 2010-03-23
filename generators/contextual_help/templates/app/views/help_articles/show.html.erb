@@ -23,6 +23,9 @@
   <%=h @help_article.page_tip %>
 </p>
 
+<%- @help_article.help_locations.each do |location| -%>
+<p><%= location.controller %> - <%= location.action %> <%= (location.in_use) ? "In Use" : "Not in Use" %></p>
+<%- end -%>
 
 <%= link_to 'Edit', edit_help_article_path(@help_article) %> |
 <%= link_to 'Contextual Help Articles', help_articles_path %> |
