@@ -29,32 +29,20 @@ class HelpLocationsController < ApplicationController
   end
 
   def create  
-    HelpLocation.find_or_initialize_by_action_and_controller(
-      :action => r.defaults[:action],
-      :controller => r.defaults[:controller]).save unless (
-         ['help_articles','help_locations'].include? r.defaults[:controller]) ||
-      (['help','update','create','destroy'].include? r.defaults[:action])
+    ActionController::Routing::Routes.routes.each do |r| 
+      unless (['help_articles', 'help_locations'].include? r.defaults[:controller]) || (['help','update','create','destroy'].include? r.defaults[:action])
+        HelpLocation.find_or_initialize_by_action_and_controller( :action => r.defaults[:action], :controller => r.defaults[:controller]).save
+      end
+    end
     redirect_to help_locations_path
   end
-
-    # @help_location = HelpLocation.new(params[:help_location])
-    # respond_to do |format|
-    #   if @help_location.save
-    #     flash[:notice] = 'HelpLocation was successfully created.'
-    #     format.html { redirect_to(@help_location) }
-    #     format.xml  { render :xml => @help_location, :status => :created, :location => @help_location }
-    #   else
-    #     format.html { render :action => "new" }
-    #     format.xml  { render :xml => @help_location.errors, :status => :unprocessable_entity }
-    #   end
-    # end
 
   def update
     @help_location = HelpLocation.find(params[:id])
 
     respond_to do |format|
       if @help_location.update_attributes(params[:help_location])
-        flash[:notice] = 'HelpLocation was successfully updated.'
+        flash[:notice] = 'Help Location was successfully updated.'
         format.html { redirect_to(@help_location) }
         format.xml  { head :ok }
       else
