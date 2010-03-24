@@ -38,7 +38,9 @@ class ContextualHelpGenerator < Rails::Generator::NamedBase
         look_for = 'class ApplicationController < ActionController::Base'
         m.gsub_file('app/controllers/application_controller.rb', /(#{Regexp.escape(look_for)})/mi){|match| "#{match}\n  contextual_help \n"}
       end
+      m.readme "INSTALL"
     end
+    
   end
   
   def add_options!(opt)

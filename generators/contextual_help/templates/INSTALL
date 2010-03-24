@@ -1,0 +1,12 @@
+Now that you've run the generator, you'll want to
+rake db:migrate
+goto help_locations/new and generate the locations for the database.
+
+If you've run with the --skip-routes option, add these routes:
+   map.connect ':controller/help.:format', :action => :help
+   map.connect ':controller/:rest/help.:format', :action => :help
+   map.resources :help_locations
+   map.resources :help_articles
+
+If you've run with the --skip-controller option, add this to your application_controller:
+   contextual_help

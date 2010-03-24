@@ -1,13 +1,65 @@
 ContextualHelp
 ==============
-
-Introduction goes here.
-
+Contextual Help provides a framework for adding help articles to controller/action combinations.
+Create help articles associated with urls (controller/actions) and they will be shown when visiting the controller/action/help.
+  
 
 Example
 =======
+./script/generate contextual_help foo
+foo doesn't matter at this time.
 
-Example goes here.
+This will add:
+  contextual_help to app/controllers/application_controller.rb
+
+  The following routes to config/routes.rb:
+      map.connect ':controller/help.:format', :action => :help
+      map.connect ':controller/:rest/help.:format', :action => :help
+      map.resources :help_locations
+      map.resources :help_articles
+  
+  db/migrate/..._create_contextual_help_tables.rb
+
+This will create:
+     app/views/help_articles/_form.html.erb
+     app/views/help_articles/edit.html.erb
+     app/views/help_articles/index.html.erb
+     app/views/help_articles/new.html.erb
+     app/views/help_articles/show.html.erb
+
+     app/views/help_locations/edit.html.erb
+     app/views/help_locations/index.html.erb
+     app/views/help_locations/new.html.erb
+     app/views/help_locations/show.html.erb
+
+     app/views/shared/help.html.erb # view for rendering help articles
 
 
-Copyright (c) 2010 [name of plugin creator], released under the MIT license
+General Usage
+=============
+rake db:migrate
+
+Go to /help_locations/new and click generate.
+This will populate/update the locations based on the routes currently in your application.
+
+Add help articles (help_articles/new), selected which locations they apply to.
+
+Add contextual_help_link to pages you want help linked from. 
+It will produce links of the format current/url/help
+/help will provide the help articles that match that controller action combination
+
+contextual_help_link has the following options:
+  :alway_link, defaults false
+     show help link if there is help available or not
+  :name, defaults 'Help'
+     display name for link
+  :page_tip, defaults false
+     adds page_tip flag, which pulls only help marked page_tip
+
+The /help action returns a list of articles matching the controller/action it gets.
+    foo/help would match foo/index
+    foo/new/help would match foo/new
+It will serve html, xml, or json. The page_tip flag allows limiting it to just things marked page_tip
+
+
+Copyright (c) 2010 Andrew J Vargo, released under the MIT license
